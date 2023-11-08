@@ -2,9 +2,6 @@
     <footer class="bg-primary-400 text-accent-400">
         <div class="container py-4 px-3 mx-auto">
             <div class="nav-wrapper">
-                <div>
-                    <a href="#"><img src="" alt="Logo"></a>
-                </div>
                 <div class="row">
                     <div class="col">
                         <LicenseVue />

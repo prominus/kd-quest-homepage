@@ -1,10 +1,12 @@
 <template>
     <div id="license-container" class="container py-4 px-3 mx-auto">
-        <p>This site, and the frameworks used, fall under the MIT License</p>
-        <a href="https://opensource.org/license/mit/">Link to license</a>
-        <br>
-        <p>Game items fall under Open Gaming License (OGL) License</p>
-        <a href="https://www.chaosium.com/content/orclicense/ORC_License_FINAL.pdf">Link to license</a>
+        <p>Copyright (c) 2023 Cody LeClair<br /><br />This site - and all software frameworks used - fall under
+            <a href="https://github.com/prominus/kd-quest-homepage/blob/main/LICENSE">MIT License</a>.<br /><br />A Foundry
+            Virtual Tabletop License was purchased at <a
+                href="https://foundryvtt.com/purchase/">http://wwww.foundryvtt.com</a>.<br /><br />Starfinder core rules and
+            gaming mechanics fall under <a href="https://www.chaosium.com/content/orclicense/ORC_License_FINAL.pdf">Open
+                Gaming License (OGL)</a>.
+        </p>
     </div>
 </template>
 
