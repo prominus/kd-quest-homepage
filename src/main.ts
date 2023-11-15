@@ -6,6 +6,11 @@ import router from './router'
 import './scss/styles.scss'
 
 // Import all of Bootstrap's JS
-import * as bootstrap from 'bootstrap';
+// import * as Popper from "@popperjs/core";
+import {Popover} from 'bootstrap';
+
+document.querySelectorAll('[data-bs-toggle="popover"').forEach(popover => {
+    new Popover(popover);
+});
 
 createApp(App).use(router).mount('#app')

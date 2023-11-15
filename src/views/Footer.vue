@@ -10,7 +10,9 @@
                         <nav class="footer-nav">
                             <ul role="list" aria-label="Footer" class="footer-list">
                                 <li><router-link class="footer-link" to="/">Home</router-link></li>
-                                <li><router-link class="footer-link" to="/documents">Documents</router-link></li>
+                                <li><router-link class="footer-link" to="/Guide">Guide</router-link></li>
+                                <li><router-link class="footer-link" to="/Links">Reference Links</router-link></li>
+                                <li><router-link class="footer-link" to="/PdfDocs">PDF Documents</router-link></li>
                                 <li><a class="footer-link" href="/launch">Launch Game</a></li>
                             </ul>
                         </nav>
