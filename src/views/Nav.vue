@@ -4,9 +4,9 @@
       <nav class="navbar navbar-expand-md navbar-dark bg-primary">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">
-            KD presents Starfinder
+            Koala Down Quest
           </a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -30,7 +30,7 @@
                 </ul>
               </li>
               <li class="nav-item">
-                <a class="nav-link bg-danger" href="#">Launch Game</a>
+                <a class="nav-link bg-danger" href="https://launch.koaladown.quest">Launch Game</a>
               </li>
             </ul>
           </div>

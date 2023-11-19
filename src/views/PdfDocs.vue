@@ -1,5 +1,7 @@
 <template>
-    <div class="app-header">
+    <h1>PDF Documents</h1>
+    <p>More coming soon...</p>
+    <!-- <div class="app-header">
         <template v-if="isLoading"> Loading... </template>
 
         <template v-else>
@@ -24,7 +26,7 @@
     <div class="app-content">
         <vue-pdf-embed ref="pdfRef" :source="pdfSource" :page="page" @password-requested="handlePasswordRequest"
             @rendered="handleDocumentRender" />
-    </div>
+    </div> -->
 </template>
 
 <script lang="ts">
