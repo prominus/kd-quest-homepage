@@ -2,10 +2,10 @@
   <header>
     <div id="nav-container" class="container py-4 px-3 mx-auto">
       <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand mb-0 h1" href="#">
+        <router-link class="navbar-brand mb-0 h1" to="/">
           <img src="/src/assets/kd-logo.svg" width="120" height="120" class="d-inline-block align-center" alt="">
           Koala Down Quest
-        </a>
+        </router-link>
         <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
           aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -34,12 +34,13 @@
               <div v-else>
                 <form class="form-inline my-2 my-lg-0 ml-auto" @submit.prevent="login">
                   <div class="input-group">
-                    <input type="text" class="form-control mr-sm-2" placeholder="Username" aria-label="Username">
-                    <input type="password" class="form-control mr-sm-2" placeholder="Password" aria-label="Password"
-                      name="passwdInput" id="passwdInput">
+                    <input type="text" v-model="email" class="form-control mr-sm-2" placeholder="Email" aria-label="Email" required />
+                    <input type="password" v-model="password" class="form-control mr-sm-2" placeholder="Password" aria-label="Password"
+                      name="passwdInput" required id="password" />
                     <input type="submit" class="btn bg-danger btn-lg text-white my-2 my-sm-0" value="Login">
                   </div>
                 </form>
+                <div class="text-white">{{ invalidMessage }}</div>
               </div>
             </li>
           </ul>
@@ -49,25 +50,46 @@
   </header>
 </template>
 
-<script lang="ts">
-export default {
-  data() {
-    return {
-      isLoggedIn: false,
-      username: 'Username',
-      password: 'Password'
-    };
-  },
-  methods:
-  {
-    login() {
-      // TODO: authenticate credentials
-      this.isLoggedIn = true;
+<script setup lang="ts">
+import { ref } from "vue";
+import { signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
+// @ts-ignore
+import { firebaseAuth } from "@/auth";
 
-    },
-    logout() {
-      this.isLoggedIn = false;
-    }
-  }
+// Synced values with login form
+const email = ref('');
+const password = ref('');
+const isLoggedIn = ref(false)
+const invalidMessage = ref('');
+
+// Will show login form if user is not logged in. Otherwise, will show logout button
+onAuthStateChanged(firebaseAuth, user => {
+  if (user != null) {
+    isLoggedIn.value = true;
+  } else {
+    isLoggedIn.value = false;
+  } 
+});
+
+// Log in the user with email/password credentials
+function login() {
+  // TODO: authenticate credentials
+  console.log(`email ${email.value} password ${password.value}`);
+  
+  signInWithEmailAndPassword(firebaseAuth, email.value, password.value).then(_ => {
+    email.value = "";
+    password.value = "";
+    invalidMessage.value = "";
+
+  }).catch(_ => {
+    invalidMessage.value = "Invalid Login";
+  });
+
 }
+
+function logout() {
+  signOut(firebaseAuth);
+}
+  
+
 </script>

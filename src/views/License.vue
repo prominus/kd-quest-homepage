@@ -4,7 +4,7 @@
             <a href="https://github.com/prominus/kd-quest-homepage/blob/main/LICENSE">MIT License</a>.<br /><br />A Foundry
             Virtual Tabletop License was purchased at <a
                 href="https://foundryvtt.com/purchase/">http://wwww.foundryvtt.com</a>.<br /><br />Starfinder core rules and
-            gaming mechanics fall under <a href="https://www.chaosium.com/content/orclicense/ORC_License_FINAL.pdf">Open
+            gaming mechanics fall under <a href="https://opengamingfoundation.org/ogl.html">Open
                 Gaming License (OGL)</a>.
         </p>
     </div>
