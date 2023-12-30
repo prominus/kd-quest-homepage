@@ -1,85 +1,148 @@
-<!-- TODO: List rendering https://vuejs.org/guide/essentials/list.html -->
-
 <template>
     <h1>PDF Documents</h1>
-    <p>More coming soon...</p>
-    <!-- <div class="app-header">
-        <template v-if="isLoading"> Loading... </template>
+    <div v-if="isLoggedIn">
+        <h2>Book/Chapter List</h2>
+        <ul>
+            <li class="" v-for="book in bookCollection">
+                <div class="panel-group">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#test">{{ book.id }}</a>
+                    </h4>
+                </div>
+                <div id="test" class="panel-body">
+                    <ul class="list-group">
+                        <li class="list-group-item" v-for="(chapter in book.data().Chapters">
+                            <li v-for="(pdf_name, display_name) in chapter">
+                                <button class="nav-link" @click="handlePdfSelected(book.id, pdf_name)">{{ display_name }}</button>
+                            </li>
+                        </li>
+                    </ul>
+                </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div v-else>
+        <h5>Please login to view this content.</h5>
+    </div>
+    
+    <div id="pdfTemplate" style="display: none;">
+        <h2>PDF Viewer</h2>
+        <span v-if="showAllPages"> {{ pageCount }} page(s) </span>
 
-        <template v-else>
-            <span v-if="showAllPages"> {{ pageCount }} page(s) </span>
+        <span v-else>
+            <button :disabled="page <= 1" @click="decrementPage">❮</button>
 
-            <span v-else>
-                <button :disabled="page <= 1" @click="page--">❮</button>
+            {{ page }} / {{ pageCount }}
 
-                {{ page }} / {{ pageCount }}
+            <button :disabled="page >= pageCount" @click="incrementPage">❯</button>
+        </span>
 
-                <button :disabled="page >= pageCount" @click="page++">❯</button>
-            </span>
+        <input type="checkbox" id="checkbox" v-model="showAllPages" @click="handleShowAllPages"/>
+        <label class="right" for="checkbox">Show all pages</label>
 
-            <label class="right">
-                <input v-model="showAllPages" type="checkbox" />
-
-                Show all pages
-            </label>
-        </template>
     </div>
 
     <div class="app-content">
         <vue-pdf-embed ref="pdfRef" :source="pdfSource" :page="page" @password-requested="handlePasswordRequest"
             @rendered="handleDocumentRender" />
-    </div> -->
+    </div>
 </template>
 
-<script lang="ts">
-import VuePdfEmbed from 'vue-pdf-embed'
+<script setup lang="ts">
+import { Ref, ref } from "vue";
+import VuePdfEmbed from 'vue-pdf-embed';
+import { onAuthStateChanged } from "firebase/auth";
+import { collection, getDocs } from "firebase/firestore";
+import { firebaseAuth, firebaseDb } from "../auth";
 
-// OR THE FOLLOWING IMPORT FOR VUE 2
-// import VuePdfEmbed from 'vue-pdf-embed/dist/vue2-pdf-embed'
+// Synced values
+//
+// When true the List of PDFs will display
+const isLoggedIn = ref(false);
+// When showing single page view this will be a number. When showing all pages this will be null
+const page: Ref<number | null> = ref(1);
+// Total number of pages for selected PDF
+const pageCount = ref(1);
+// Relative path to PDF
+const pdfSource = ref('');
+// Show all pages when true. Otherwise, show page number from page value.
+const showAllPages = ref(false);
+// Data table from firestore
+const bookCollection = ref({});
+// Object reference to the PDF view
+const pdfRef = ref(null);
 
-export default {
-    components: {
-        VuePdfEmbed
-    },
-    data() {
-        return {
-            isLoading: true,
-            page: null,
-            pageCount: 1,
-            pdfSource:
-                './docs/Starfinder - Core Rulebook.pdf',
-            showAllPages: true
-        }
-    },
-    watch: {
-        showAllPages() {
-            this.page = this.showAllPages ? null : 1
-        }
-    },
-    methods: {
-        handleDocumentRender(args: any) {
-            if (args != undefined) {
+// Event handler for user sign in state change
+onAuthStateChanged(firebaseAuth, async user => {
+    // Used for html layout
+    isLoggedIn.value = (user != null);
+    // If user is logged in get the book database
+    if (user != null) {
+        const querySnapshot = await getDocs(collection(firebaseDb, 'Books'));
+        // querySnapshot.forEach(doc => {
+        //     console.log(doc.id, doc.data());
+        // })
+        bookCollection.value = querySnapshot.docs;
+    }
+});
 
-                console.log(args)
-            }
-            this.isLoading = false
-            this.pageCount = this.$refs.pdfRef.pageCount
-        },
-        handlePasswordRequest(callback, retry) {
-            callback(prompt(retry ? 'Enter password again' : 'Enter password'))
-        }
+// Go to previous page
+function decrementPage(_: any) {
+    if (page.value != null) {
+        // @ts-ignore    
+        page.value -= 1;
     }
 }
-</script>
 
-<style>
-.pdf {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: scroll;
-    padding: 1em;
-    margin: 1em;
-    border: 1px solid gray;
+// Go to next page
+function incrementPage(_: any) {
+    if (page.value != null) {
+        // @ts-ignore
+        page.value += 1;
+    }
 }
-</style>
+
+// Event handler for when a pdf link is selected
+function handlePdfSelected(bookName: any, chapter: any) {
+    // Generate PDF location
+    pdfSource.value = `./Books/${bookName}/${chapter}`;
+    // console.log(pdfSource.value);
+
+    // Render the PDF in the viewer
+    const pdfTemplate = document.getElementById('pdfTemplate');
+    if (pdfTemplate) {
+        pdfTemplate.style.display = "block";
+    }
+
+    // Logic to jump to PDF viewer
+    const url = location.href;
+    location.href = '#pdfTemplate'
+    // The second argument can be null
+    // @ts-ignore
+    history.replaceState(null, null, url);
+}
+
+// Update page count variable once PDF is rendered in viewer
+function handleDocumentRender(args: any) {
+    if (args != undefined) {
+        console.log(args)
+    }    
+    if (pdfRef.value != null) {
+        // We know this will have pageCount
+        // @ts-ignore
+        pageCount.value = pdfRef.value.pageCount;
+    }  
+}
+
+// Update page variable
+function handleShowAllPages(_: any) {
+    page.value = showAllPages.value ? 1 : null;
+}
+
+// Request password for PDF if there is any
+function handlePasswordRequest(callback: Function, retry: boolean) {
+    callback(prompt(retry ? 'Enter password again' : 'Enter password'))
+}
+</script>

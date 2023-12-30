@@ -59,23 +59,16 @@ import { firebaseAuth } from "@/auth";
 // Synced values with login form
 const email = ref('');
 const password = ref('');
-const isLoggedIn = ref(false)
+const isLoggedIn = ref(false);
 const invalidMessage = ref('');
 
 // Will show login form if user is not logged in. Otherwise, will show logout button
 onAuthStateChanged(firebaseAuth, user => {
-  if (user != null) {
-    isLoggedIn.value = true;
-  } else {
-    isLoggedIn.value = false;
-  } 
+  isLoggedIn.value = (user != null);
 });
 
 // Log in the user with email/password credentials
-function login() {
-  // TODO: authenticate credentials
-  console.log(`email ${email.value} password ${password.value}`);
-  
+function login() {  
   signInWithEmailAndPassword(firebaseAuth, email.value, password.value).then(_ => {
     email.value = "";
     password.value = "";
