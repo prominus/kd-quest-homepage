@@ -6,16 +6,16 @@
             <li class="list-inline-item py-4 px-3 mx-auto" v-for="book in bookCollection">
                 <div class="panel-group mx-auto">
                     <div class="panel-heading">
-                        <h4 class="panel-title">
-                            {{ book.id }}
-                        </h4>
+                        <!-- @vue-skip -->
+                        <h4 class="panel-title">{{ book.id }}</h4>
                     </div>
                     <div id="test" class="panel-body">
                         <ul class="list-group px-2">
+                            <!-- @vue-ignore -->
                             <li class="list-group-item mx-2 px-auto" v-for="(chapter in book.data().Chapters">
                             <li v-for="(pdf_name, display_name) in chapter">
-                                <button class="nav-link" @click="handlePdfSelected(book.id, pdf_name)">{{ display_name
-                                }}</button>
+                                <!-- @vue-ignore -->
+                                <button class="nav-link" @click="handlePdfSelected(book.id, pdf_name)">{{ display_name }}</button>
                             </li>
             </li>
         </ul>
@@ -33,12 +33,16 @@
         <span v-if="showAllPages"> {{ pageCount }} page(s) </span>
 
         <span v-else>
+            <!-- @vue-ignore -->
             <button :disabled="page <= 1" @click="firstPage">❮❮</button>
+            <!-- @vue-ignore -->
             <button :disabled="page <= 1" @click="decrementPage">❮</button>
 
             {{ page }} / {{ pageCount }}
 
+            <!-- @vue-ignore -->
             <button :disabled="page >= pageCount" @click="incrementPage">❯</button>
+            <!-- @vue-ignore -->
             <button :disabled="page >= pageCount" @click="lastPage">❯❯</button>
         </span>
         <div class="right">
@@ -48,6 +52,7 @@
 
     </div>
     <div id="pdf-content" class="pdf-content">
+        <!-- @vue-ignore -->
         <vue-pdf-embed 
             ref="pdfRef"
             :source="pdfSource"
@@ -83,7 +88,7 @@ const bookCollection = ref({});
 const pdfRef = ref(null);
 
 // Event handler for user sign in state change
-onAuthStateChanged(firebaseAuth, async user => {
+onAuthStateChanged(firebaseAuth, async (user: any) => {
     // Used for html layout
     isLoggedIn.value = (user != null);
     // If user is logged in get the book database

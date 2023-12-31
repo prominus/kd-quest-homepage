@@ -26,12 +26,12 @@ const invalidMessage = ref('');
 
 // Log in the user with email/password credentials
 function login() {  
-  signInWithEmailAndPassword(firebaseAuth, email.value, password.value).then(_ => {
+  signInWithEmailAndPassword(firebaseAuth, email.value, password.value).then(() => {
     email.value = "";
     password.value = "";
     invalidMessage.value = "";
     router.push('/');
-  }).catch(_ => {
+  }).catch(() => {
     invalidMessage.value = "Invalid Login";
   });
 
