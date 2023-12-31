@@ -11,25 +11,40 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <router-link class="nav-link" to="/">Home</router-link>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Documents
-              </a>
-              <ul class="dropdown-menu dropdown-menu-dark bg-primary">
-                <li><router-link class="nav-link" to="/Guide">Guide</router-link></li>
-                <li><router-link class="nav-link" to="/Links">Links</router-link></li>
-                <li><router-link class="nav-link" to="/PdfDocs">PDF Docs</router-link></li>
-              </ul>
-            </li>
-            <li class="nav-item"><a href="https://launch.koaladown.quest">Launch Game</a></li>
-            <li v-if="isLoggedIn === true"><router-link class="nav-link badge" to="/Account">Account</router-link></li>
-            <li v-if="isLoggedIn === true"><button class="nav-link badge" @click="logout">Logout</button></li>
-            <li v-if="isLoggedIn === false"><router-link class="nav-link badge" to="/Login">Login</router-link></li>
-          </ul>
+          <div class="row mx-small-auto px-4">
+
+            <ul class="navbar-nav col-lg-11 mx-auto">
+              <li class="nav-item">
+                <router-link class="nav-link" to="/">Home</router-link>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  Documents
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark bg-primary">
+                  <li><router-link class="nav-link" to="/Guide">Guide</router-link></li>
+                  <li><router-link class="nav-link" to="/Links">Links</router-link></li>
+                  <li><router-link class="nav-link" to="/PdfDocs">PDF Docs</router-link></li>
+                </ul>
+              </li>
+              <li class="nav-item"><a class="nav-link" href="https://launch.koaladown.quest">Launch Game</a></li>
+            </ul>
+            <ul class="navbar-nav col-lg-1 mx-auto">
+              <li class="h4" v-if="isLoggedIn === true">
+                <router-link class="nav-link badge" to="/Account">
+                  Account</router-link>
+              </li>
+              <li class="h4" v-if="isLoggedIn === true">
+                <button class="nav-link badge" @click="logout">
+                  Logout
+                </button>
+              </li>
+              <li class="h4" v-if="isLoggedIn === false">
+                <router-link class="nav-link badge" to="/Login">Login</router-link>
+              </li>
+            </ul>
+          </div>
         </div>
       </nav>
     </div>

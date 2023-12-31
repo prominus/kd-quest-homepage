@@ -4,15 +4,15 @@
         <h2>Book/Chapter List</h2>
         <ul class="list-inline">
             <li class="list-inline-item py-4 px-3 mx-auto" v-for="book in bookCollection">
-                <div class="panel-group">
+                <div class="panel-group mx-auto">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse">{{ book.id }}</a>
+                            {{ book.id }}
                         </h4>
                     </div>
                     <div id="test" class="panel-body">
-                        <ul class="list-group">
-                            <li class="list-group-item" v-for="(chapter in book.data().Chapters">
+                        <ul class="list-group px-2">
+                            <li class="list-group-item mx-2 px-auto" v-for="(chapter in book.data().Chapters">
                             <li v-for="(pdf_name, display_name) in chapter">
                                 <button class="nav-link" @click="handlePdfSelected(book.id, pdf_name)">{{ display_name
                                 }}</button>
