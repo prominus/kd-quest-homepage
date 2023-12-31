@@ -2,51 +2,59 @@
     <h1>PDF Documents</h1>
     <div v-if="isLoggedIn">
         <h2>Book/Chapter List</h2>
-        <ul>
-            <li class="" v-for="book in bookCollection">
+        <ul class="list-inline">
+            <li class="list-inline-item py-4 px-3 mx-auto" v-for="book in bookCollection">
                 <div class="panel-group">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" href="#test">{{ book.id }}</a>
-                    </h4>
-                </div>
-                <div id="test" class="panel-body">
-                    <ul class="list-group">
-                        <li class="list-group-item" v-for="(chapter in book.data().Chapters">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse">{{ book.id }}</a>
+                        </h4>
+                    </div>
+                    <div id="test" class="panel-body">
+                        <ul class="list-group">
+                            <li class="list-group-item" v-for="(chapter in book.data().Chapters">
                             <li v-for="(pdf_name, display_name) in chapter">
-                                <button class="nav-link" @click="handlePdfSelected(book.id, pdf_name)">{{ display_name }}</button>
+                                <button class="nav-link" @click="handlePdfSelected(book.id, pdf_name)">{{ display_name
+                                }}</button>
                             </li>
-                        </li>
-                    </ul>
-                </div>
-                </div>
             </li>
         </ul>
+    </div>
+    </div>
+    </li>
+    </ul>
     </div>
     <div v-else>
         <h5>Please login to view this content.</h5>
     </div>
-    
-    <div id="pdfTemplate" style="display: none;">
-        <h2>PDF Viewer</h2>
+
+    <div id="pdf-header" style="display: none;">
+        <h2 id="pdf-viewer">PDF Viewer</h2>
         <span v-if="showAllPages"> {{ pageCount }} page(s) </span>
 
         <span v-else>
+            <button :disabled="page <= 1" @click="firstPage">❮❮</button>
             <button :disabled="page <= 1" @click="decrementPage">❮</button>
 
             {{ page }} / {{ pageCount }}
 
             <button :disabled="page >= pageCount" @click="incrementPage">❯</button>
+            <button :disabled="page >= pageCount" @click="lastPage">❯❯</button>
         </span>
-
-        <input type="checkbox" id="checkbox" v-model="showAllPages" @click="handleShowAllPages"/>
-        <label class="right" for="checkbox">Show all pages</label>
+        <div class="right">
+            <input type="checkbox" id="checkbox" v-model="showAllPages" @click="handleShowAllPages" />
+            <label for="checkbox">Show all pages</label>
+        </div>
 
     </div>
-
-    <div class="app-content">
-        <vue-pdf-embed ref="pdfRef" :source="pdfSource" :page="page" @password-requested="handlePasswordRequest"
-            @rendered="handleDocumentRender" />
+    <div id="pdf-content" class="pdf-content">
+        <vue-pdf-embed 
+            ref="pdfRef"
+            :source="pdfSource"
+            :page="page"
+            @password-requested="handlePasswordRequest"
+            @rendered="handleDocumentRender"
+        />
     </div>
 </template>
 
@@ -96,11 +104,23 @@ function decrementPage(_: any) {
     }
 }
 
+function firstPage(_: any) {
+    if (page.value != null) {
+        page.value = 1;
+    }
+}
+
 // Go to next page
 function incrementPage(_: any) {
     if (page.value != null) {
         // @ts-ignore
         page.value += 1;
+    }
+}
+
+function lastPage(_: any) {
+    if (page.value != null) {
+        page.value = pageCount.value;
     }
 }
 
@@ -111,14 +131,14 @@ function handlePdfSelected(bookName: any, chapter: any) {
     // console.log(pdfSource.value);
 
     // Render the PDF in the viewer
-    const pdfTemplate = document.getElementById('pdfTemplate');
+    const pdfTemplate = document.getElementById('pdf-header');
     if (pdfTemplate) {
         pdfTemplate.style.display = "block";
     }
 
     // Logic to jump to PDF viewer
     const url = location.href;
-    location.href = '#pdfTemplate'
+    location.href = '#pdf-viewer'
     // The second argument can be null
     // @ts-ignore
     history.replaceState(null, null, url);
@@ -128,12 +148,12 @@ function handlePdfSelected(bookName: any, chapter: any) {
 function handleDocumentRender(args: any) {
     if (args != undefined) {
         console.log(args)
-    }    
+    }
     if (pdfRef.value != null) {
         // We know this will have pageCount
         // @ts-ignore
         pageCount.value = pdfRef.value.pageCount;
-    }  
+    }
 }
 
 // Update page variable

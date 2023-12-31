@@ -1,12 +1,23 @@
 // Import all of Bootstrap's CSS
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
-.pdf {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: scroll;
-    padding: 1em;
-    margin: 1em;
-    border: 1px solid gray;
+  
+.vue-pdf-embed > div {
+margin-bottom: 8px;
+box-shadow: 0 2px 8px 4px rgba(0, 0, 0, 0.1);
+}
+
+.pdf-header {
+padding: 16px;
+box-shadow: 0 2px 8px 4px rgba(0, 0, 0, 0.1);
+background-color: #555;
+color: #ddd;
+}
+
+.pdf-content {
+padding: 24px 16px;
+}
+
+.right {
+float: right;
 }

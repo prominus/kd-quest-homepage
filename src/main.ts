@@ -5,8 +5,6 @@ import { createApp } from 'vue'
 import App from '@/App.vue'
 // @ts-ignore
 import router from '@'
-// @ts-ignore
-import AuthStorePlugin from "@plugins/authStore";
 
 // Import our custom CSS
 import '@scss/styles.scss'
@@ -18,6 +16,5 @@ import {Popover} from 'bootstrap';
 document.querySelectorAll('[data-bs-toggle="popover"').forEach(popover => {
     new Popover(popover);
 });
-
 
 createApp(App).use(router).mount('#app')

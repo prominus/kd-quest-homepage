@@ -23,26 +23,12 @@
                 <li><router-link class="nav-link" to="/Guide">Guide</router-link></li>
                 <li><router-link class="nav-link" to="/Links">Links</router-link></li>
                 <li><router-link class="nav-link" to="/PdfDocs">PDF Docs</router-link></li>
-
               </ul>
             </li>
-            <li><a class="nav-link" href="https://launch.koaladown.quest">Launch Game</a></li>
-            <li>
-              <div v-if="isLoggedIn">
-                <button class="btn bg-danger btn-lg text-white my-2 my-sm-0" @click="logout">Logout</button>
-              </div>
-              <div v-else>
-                <form class="form-inline my-2 my-lg-0 ml-auto" @submit.prevent="login">
-                  <div class="input-group">
-                    <input type="text" v-model="email" class="form-control mr-sm-2" placeholder="Email" aria-label="Email" required />
-                    <input type="password" v-model="password" class="form-control mr-sm-2" placeholder="Password" aria-label="Password"
-                      name="passwdInput" required id="password" />
-                    <input type="submit" class="btn bg-danger btn-lg text-white my-2 my-sm-0" value="Login">
-                  </div>
-                </form>
-                <div class="text-white">{{ invalidMessage }}</div>
-              </div>
-            </li>
+            <li class="nav-item"><a href="https://launch.koaladown.quest">Launch Game</a></li>
+            <li v-if="isLoggedIn === true"><router-link class="nav-link badge" to="/Account">Account</router-link></li>
+            <li v-if="isLoggedIn === true"><button class="nav-link badge" @click="logout">Logout</button></li>
+            <li v-if="isLoggedIn === false"><router-link class="nav-link badge" to="/Login">Login</router-link></li>
           </ul>
         </div>
       </nav>
@@ -52,37 +38,20 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 // @ts-ignore
 import { firebaseAuth } from "@/auth";
 
 // Synced values with login form
-const email = ref('');
-const password = ref('');
 const isLoggedIn = ref(false);
-const invalidMessage = ref('');
 
 // Will show login form if user is not logged in. Otherwise, will show logout button
 onAuthStateChanged(firebaseAuth, user => {
   isLoggedIn.value = (user != null);
 });
 
-// Log in the user with email/password credentials
-function login() {  
-  signInWithEmailAndPassword(firebaseAuth, email.value, password.value).then(_ => {
-    email.value = "";
-    password.value = "";
-    invalidMessage.value = "";
-
-  }).catch(_ => {
-    invalidMessage.value = "Invalid Login";
-  });
-
-}
-
 function logout() {
   signOut(firebaseAuth);
 }
-  
 
 </script>
