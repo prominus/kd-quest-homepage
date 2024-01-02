@@ -23,7 +23,7 @@
                   Documents
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark bg-primary">
-                  <li><router-link class="nav-link" to="/Guide">Guide</router-link></li>
+                  <li><router-link class="nav-link" to="/Guide">Getting Started</router-link></li>
                   <li><router-link class="nav-link" to="/Links">Links</router-link></li>
                   <li><router-link class="nav-link" to="/PdfDocs">PDF Docs</router-link></li>
                 </ul>

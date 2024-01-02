@@ -20,7 +20,7 @@ const routes = [
     {path: '/Links', name: 'Links', component: LinksVue},
     {path: '/Login', name: 'Login', component: LoginVue},
     {path: '/PdfDocs', name: 'PdfDocs', component: PdfDocsView},
-    {path: '/Guide', name: 'Guide', component: GuideVue}
+    {path: '/Guide', name: 'Getting Started', component: GuideVue}
 ]
 
 const router = createRouter({

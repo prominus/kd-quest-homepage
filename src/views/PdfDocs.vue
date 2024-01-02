@@ -1,5 +1,10 @@
 <template>
     <h1>PDF Documents</h1>
+
+    <div class="alert alert-primary"><strong>Note:</strong> I'm sharing my purchased PDFs as I don't expect everyone to go out and buy their
+        own copies. I only ask that you do <strong>not</strong> distribute. If you'd like to get your own copies: PDFs, physical books, and other official
+        Starfinder items can be purchased at <a href="https://paizo.com/store/starfinder/rulebooks">Paizo.</a></div>
+
     <div v-if="isLoggedIn">
         <h2>Book/Chapter List</h2>
         <ul class="list-inline">
@@ -7,7 +12,7 @@
                 <div class="panel-group mx-auto">
                     <div class="panel-heading">
                         <!-- @vue-skip -->
-                        <h4 class="panel-title">{{ book.id }}</h4>
+                        <h4 :id="book.id.replace(/ /g, '_')" class="panel-title">{{ book.id }}</h4>
                     </div>
                     <div id="test" class="panel-body">
                         <ul class="list-group px-2">
@@ -15,7 +20,8 @@
                             <li class="list-group-item mx-2 px-auto" v-for="(chapter in book.data().Chapters">
                             <li v-for="(pdf_name, display_name) in chapter">
                                 <!-- @vue-ignore -->
-                                <button class="nav-link" @click="handlePdfSelected(book.id, pdf_name)">{{ display_name }}</button>
+                                <button class="nav-link" @click="handlePdfSelected(book.id, pdf_name)">{{ display_name
+                                }}</button>
                             </li>
             </li>
         </ul>
@@ -53,13 +59,8 @@
     </div>
     <div id="pdf-content" class="pdf-content">
         <!-- @vue-ignore -->
-        <vue-pdf-embed 
-            ref="pdfRef"
-            :source="pdfSource"
-            :page="page"
-            @password-requested="handlePasswordRequest"
-            @rendered="handleDocumentRender"
-        />
+        <vue-pdf-embed ref="pdfRef" :source="pdfSource" :page="page" @password-requested="handlePasswordRequest"
+            @rendered="handleDocumentRender" />
     </div>
 </template>
 
