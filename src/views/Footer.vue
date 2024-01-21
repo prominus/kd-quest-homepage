@@ -10,8 +10,8 @@
                         <nav class="footer-nav">
                             <ul role="list" aria-label="Footer" class="footer-list">
                                 <li><router-link class="footer-link" to="/">Home</router-link></li>
-                                <li><router-link class="footer-link" to="/Guide">Guide</router-link></li>
-                                <li><router-link class="footer-link" to="/Links">Reference Links</router-link></li>
+                                <li><router-link class="footer-link" to="/Guide">Getting Started</router-link></li>
+                                <li><router-link class="footer-link" to="/Links">Online Resources</router-link></li>
                                 <li><router-link class="footer-link" to="/PdfDocs">PDF Documents</router-link></li>
                                 <li><a class="footer-link" href="https://launch.koaladown.quest">Launch Game</a></li>
                             </ul>

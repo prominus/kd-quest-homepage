@@ -22,7 +22,7 @@
                 href="https://www.youtube.com/playlist?list=PL4ihyL-PTq4PcoihxRNCjCDe8qbim_riq">https://www.youtube.com/playlist?list=PL4ihyL-PTq4PcoihxRNCjCDe8qbim_riq</a>
         </p>
         <p class="h3">Starfinder Lore and Species</p>
-        <p>A great channel if you'd rather listen to someone explain Starfinder Lore rather than reading it.</p>
+        <p>A great channel if you'd rather listen to someone explain Starfinder Lore than reading it.</p>
         <p><a href="https://www.youtube.com/@TheMapleTable/playlists">https://www.youtube.com/@TheMapleTable/playlists</a></p>
     </div>
 </template>

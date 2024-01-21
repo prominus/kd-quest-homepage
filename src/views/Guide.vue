@@ -31,8 +31,14 @@
         <p>Speaking of character building: You are welcome to use the pre-generated (Pregen) Iconic Characters if you prefer
             easing into the rules/gameplay more. Or you know, just don&#39;t have the time to dedicate reading a bunch of
             material at once. </p>
-        <p>If you are up for creating a a new character, then read the portions of these chapters necessary for the
+        <p>If you are up for creating a a new character, then download the character sheet, and read the portions of these chapters necessary for the
             character you are envisioning.</p>
+        <p class="h3">Character sheets</p>
+        <ul>
+            <li>The minimum character sheet can be <a href="https://paizo.com/download/starfinder/PZO7101-CharacterSheet.zip">downloaded here</a></li>
+            <li>For a more extensive character sheet you can download the <a href="./Books/Player Character Folio/PZO7103E.pdf" download>character player portfolio</a></li>
+        </ul>
+        <p class="h3">Character chapters</p>
         <ul>
             <li>Chapter 2 - Character Creation</li>
             <li>Chapter 3 - Races</li>
